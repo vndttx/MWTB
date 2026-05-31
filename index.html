@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTG Tournament Manager - JS Edition</title>
+    <title>MTG Tournament Manager</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #1a1a1a; color: #fff; text-align: center; padding-bottom: 50px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0B1215; color: #fff; text-align: center; padding-bottom: 50px; }
         .container { max-width: 800px; margin: auto; padding: 20px; }
-        .card { background: #2d2d2d; padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid #444; }
-        input { padding: 10px; margin: 5px; background: #3d3d3d; border: 1px solid #555; color: #fff; border-radius: 4px; }
+        .card { background: #020D19; padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid #444; }
+        input { padding: 10px; margin: 5px; background: #011222; border: 1px solid #555; color: #fff; border-radius: 4px; }
         button { padding: 10px 20px; border: none; color: white; cursor: pointer; border-radius: 5px; font-weight: bold; margin: 5px; }
         .btn-primary { background: #2980b9; }
         .btn-success { background: #27ae60; }
@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>MTG Manager ⚔️</h1>
+        <h1>Magic The Gathering Manager</h1>
         <button class="btn-danger" onclick="resetarCampeonato()" style="font-size: 0.8em; padding: 5px 10px;">Resetar Tudo</button>
 
         <!-- ETAPA 1: CADASTRO -->
@@ -42,7 +42,7 @@
         <div id="etapa2" class="hidden">
             <div class="card">
                 <h3>Sorteio de Deck</h3>
-                <label>Qtd de Decks: </label>
+                <label>Quantidade de Decks: </label>
                 <input type="number" id="qtdDecks" value="10" min="1" style="width: 60px; text-align: center;">
                 <div class="roleta" id="displayRoleta">?</div>
                 <button class="btn-special" onclick="girarRoleta()">Girar Roleta</button>
@@ -104,7 +104,6 @@
             let jaPareados = [];
             let pool = [...jogadores];
             
-            // Tenta encontrar combinações inéditas (máximo 100 tentativas)
             for (let t = 0; t < 100; t++) {
                 pool.sort(() => Math.random() - 0.5);
                 let tempConfrontos = [];
@@ -127,7 +126,6 @@
                     }
                 }
 
-                // Se pareou todo mundo (ou sobrou só 1 no caso de ímpar)
                 if (tempPareados.length >= jogadores.length - 1) {
                     novosConfrontos = tempConfrontos;
                     jaPareados = tempPareados;
@@ -164,14 +162,11 @@
         }
 
         function registrarVitoria(index, vencedor, perdedor) {
-            // Histórico para não repetir
             historico.push([vencedor, perdedor].sort().join('|'));
 
-            // Pontuação
             jogadores.find(j => j.nome === vencedor).v++;
             jogadores.find(j => j.nome === perdedor).d++;
 
-            // Remove o confronto resolvido
             confrontosAtuais.splice(index, 1);
             
             renderizarConfrontos();
@@ -204,7 +199,7 @@
             if (p1.v > p2.v) {
                 html += `<h2 style="color: #2ecc71;">🏆 Campeão: ${p1.nome}</h2>`;
             } else {
-                html += `<h2 style="color: #f1c40f;">⚔️ EMPATE TÉCNICO</h2>`;
+                html += `<h2 style="color: #f1c40f;"> EMPATE TÉCNICO</h2>`;
                 html += `<p style="font-size: 1.2em;">Confronto final entre <strong>${p1.nome}</strong> e <strong>${p2.nome}</strong></p>`;
             }
             html += "</div>";
